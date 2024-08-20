@@ -1,0 +1,7 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /flashcards/{flashcardId} {
+      allow read, write: if true;
+    }
+  }
+}
