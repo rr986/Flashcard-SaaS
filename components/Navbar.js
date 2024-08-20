@@ -7,13 +7,13 @@ export default function Navbar() {
       <h1 className="text-xl font-bold">Flashcard App</h1>
       <div className="flex space-x-4">
         <Link href="/flashcards">
-          <a>Flashcard Sets</a>
+          Flashcard Sets
         </Link>
         <Link href="/flashcards/new">
-          <a>Create Flashcards</a>
+          Create Flashcards
         </Link>
         <Link href="/pricing">
-          <a>Pricing</a>
+          Pricing
         </Link>
         <UserButton />
       </div>
