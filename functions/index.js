@@ -1,13 +1,15 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const OpenAI = require('openai');
+const { collection, addDoc, getDocs } = require('firebase/firestore');
+const { db } = require('../../firebase'); // Use named import
 
 // Initialize Firebase Admin SDK
 admin.initializeApp();
 
 // Initialize OpenAI API client
 const openai = new OpenAI({
-  apiKey: functions.config().openai.key, // Ensure your OpenAI API key is correctly set in the Firebase config
+  apiKey: functions.config().openai.key,
 });
 
 exports.generateFlashcards = functions.https.onRequest(async (req, res) => {
@@ -21,6 +23,15 @@ exports.generateFlashcards = functions.https.onRequest(async (req, res) => {
   }
 
   try {
+    // Use the imported db instance
+    const flashcardsRef = collection(db, 'flashcards');
+
+    const snapshot = await getDocs(flashcardsRef);
+    const existingFlashcards = [];
+    snapshot.forEach(doc => {
+      existingFlashcards.push(doc.data());
+    });
+
     const chatCompletion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -30,6 +41,12 @@ exports.generateFlashcards = functions.https.onRequest(async (req, res) => {
     });
 
     const flashcards = chatCompletion.choices[0].message.content.trim().split('\n');
+
+    await addDoc(flashcardsRef, {
+      topic,
+      flashcards,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
 
     res.status(200).send({
       success: true,
@@ -43,3 +60,4 @@ exports.generateFlashcards = functions.https.onRequest(async (req, res) => {
     });
   }
 });
+

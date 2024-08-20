@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../firebase';
+import db from '../../Firebase/firebase';
 import { collection, query, getDocs } from 'firebase/firestore';
+
 
 export default function Flashcards() {
   const [flashcards, setFlashcards] = useState([]);
 
   useEffect(() => {
     const fetchFlashcards = async () => {
-      const q = query(collection(db, "flashcards"));
-      const querySnapshot = await getDocs(q);
-      const cards = [];
-      querySnapshot.forEach((doc) => {
-        cards.push({ id: doc.id, ...doc.data() });
-      });
-      setFlashcards(cards);
+      try {
+        const flashcardsCollection = collection(db, "flashcards"); // Use the imported db instance
+        const q = query(flashcardsCollection);
+        const querySnapshot = await getDocs(q);
+        const cards = [];
+        querySnapshot.forEach((doc) => {
+          cards.push({ id: doc.id, ...doc.data() });
+        });
+        setFlashcards(cards);
+      } catch (error) {
+        console.error("Error fetching flashcards: ", error);
+      }
     };
 
     fetchFlashcards();

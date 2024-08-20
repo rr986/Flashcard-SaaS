@@ -19,7 +19,6 @@ export default function CheckoutForm() {
         },
       }
     );
-firebase --version
 
     if (error) {
       setError(error.message);
