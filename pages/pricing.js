@@ -28,7 +28,7 @@ export default function Pricing() {
         <div className="p-4 border rounded">
           <h2 className="font-bold">Basic Plan - $10/month</h2>
           <button
-            onClick={() => handleSubscribe('price_1JXS0SH7vEptzA')}
+            onClick={() => handleSubscribe('price_1Ppz7p00NCvrR1Agejjxq4N7')}
             className="px-4 py-2 bg-blue-600 text-white rounded"
             disabled={loading}
           >
@@ -38,7 +38,7 @@ export default function Pricing() {
         <div className="p-4 border rounded">
           <h2 className="font-bold">Premium Plan - $20/month</h2>
           <button
-            onClick={() => handleSubscribe('price_1JXS0TH7vEptzB')}
+            onClick={() => handleSubscribe('price_1Ppz8D00NCvrR1AgSrGC4Ks7')}
             className="px-4 py-2 bg-blue-600 text-white rounded"
             disabled={loading}
           >

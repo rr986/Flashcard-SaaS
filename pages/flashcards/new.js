@@ -13,7 +13,7 @@ export default function NewFlashcard() {
     await addDoc(collection(db, 'flashcards'), {
       question,
       answer,
-      setId, // Associate flashcard with a specific set
+      setId,
     });
 
     setQuestion('');

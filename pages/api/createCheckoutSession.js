@@ -1,5 +1,13 @@
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Stripe from 'stripe';
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import firebaseConfig from '/Users/Ragini/Movies/Flashcard SaaS/Firebase/firebase.js'; // Ensure correct path
+
+// Initialize Firebase app
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+
+// Get Firestore instance
+const db = getFirestore(app);
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15',
@@ -15,7 +23,7 @@ export default async function handler(req, res) {
         mode: 'subscription',
         line_items: [
           {
-            price: priceId,
+            price: priceId, // Ensure priceId is correct and corresponds to a valid price in Stripe
             quantity: 1,
           },
         ],
@@ -23,8 +31,7 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/cancel`,
       });
 
-      // Optionally, you can store the session in Firestore
-      const db = getFirestore();
+      // Store the session in Firestore
       await setDoc(doc(db, 'checkout_sessions', session.id), {
         sessionId: session.id,
         created: session.created,
@@ -33,6 +40,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ sessionId: session.id });
     } catch (err) {
+      console.error('Error creating checkout session:', err);
       res.status(500).json({ error: err.message });
     }
   } else {

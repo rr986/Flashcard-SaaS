@@ -1,8 +1,6 @@
-{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -38,4 +36,31 @@ img {
 
 button {
   cursor: pointer;
+}
+
+.navbar {
+  padding: 1rem;
+  background-color: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.navTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.navLink {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  color: lightgray;
 }

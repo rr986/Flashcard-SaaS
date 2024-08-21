@@ -1,45 +1,49 @@
-import { useState } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import Stripe from 'stripe';
+import db from '../../Firebase/firebase';
 
-export default function CheckoutForm() {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+// Initialize Firebase app with configuration
+const app = initializeApp(firebaseConfig);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+// Get Firestore instance
+const db = getFirestore(app);
 
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      "{CLIENT_SECRET}", // Replace with your client secret from backend
-      {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      }
-    );
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2022-11-15',
+});
 
-    if (error) {
-      setError(error.message);
-    } else {
-      console.log(paymentIntent);
+export default async function handler(req, res) {
+  if (req.method === 'POST') {
+    const { priceId } = req.body;
+
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        mode: 'subscription',
+        line_items: [
+          {
+            price: priceId, // Ensure priceId is correct and corresponds to a valid price in Stripe
+            quantity: 1,
+          },
+        ],
+        success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.headers.origin}/cancel`,
+      });
+
+      // Store the session in Firestore
+      await setDoc(doc(db, 'checkout_sessions', session.id), {
+        sessionId: session.id,
+        created: session.created,
+        status: session.status,
+      });
+
+      res.status(200).json({ sessionId: session.id });
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+      res.status(500).json({ error: err.message });
     }
-
-    setLoading(false);
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <CardElement />
-      {error && <div className="text-red-500">{error}</div>}
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-        disabled={!stripe || loading}
-      >
-        {loading ? "Processing..." : "Pay"}
-      </button>
-    </form>
-  );
+  } else {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method Not Allowed');
+  }
 }
