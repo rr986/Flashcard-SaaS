@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import db from '../../Firebase/firebase';
 import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../Firebase/firebase';
 
 export default function NewFlashcard() {
   const [question, setQuestion] = useState('');
@@ -13,7 +13,7 @@ export default function NewFlashcard() {
     await addDoc(collection(db, 'flashcards'), {
       question,
       answer,
-      setId,
+      setId, // Associate flashcard with a specific set
     });
 
     setQuestion('');

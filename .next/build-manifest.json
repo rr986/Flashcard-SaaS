@@ -32,10 +32,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/flashcards.js"
     ],
-    "/flashcards/[id]": [
+    "/flashcards/generate": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/flashcards/[id].js"
+      "static/chunks/pages/flashcards/generate.js"
     ]
   },
   "ampFirstPages": []

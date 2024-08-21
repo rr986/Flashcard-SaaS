@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/flashcards": "pages/flashcards.js",
+  "/flashcards/generate": "pages/flashcards/generate.js",
   "/": "pages/index.js",
-  "/flashcards/[id]": "pages/flashcards/[id].js"
+  "/flashcards": "pages/flashcards.js"
 }
