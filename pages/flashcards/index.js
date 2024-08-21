@@ -39,8 +39,11 @@ export default function Flashcards() {
       <h1 className="text-2xl font-bold mb-4">Your Flashcards</h1>
       {Object.keys(groupedFlashcards).map((setId) => (
         <div key={setId} className="mb-8">
-          <Link href={`/flashcards/${setId}`} passHref>
-            <a className="text-xl font-semibold mb-2">{setId}</a>
+          <Link
+            href={`/flashcards/${setId}`}
+            passHref
+            className="text-xl font-semibold mb-2">
+            {setId}
           </Link>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {groupedFlashcards[setId].map((card) => (
