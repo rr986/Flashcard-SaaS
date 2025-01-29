@@ -2,10 +2,7 @@ import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Stripe from 'stripe';
 import db from '../../Firebase/firebase';
 
-// Initialize Firebase app with configuration
 const app = initializeApp(firebaseConfig);
-
-// Get Firestore instance
 const db = getFirestore(app);
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
