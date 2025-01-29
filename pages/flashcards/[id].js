@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { db } from '../../Firebase/firebase';
+import { db } from '../../firebase/firebase';
 import { collection, query, getDocs, where, doc, getDoc } from 'firebase/firestore';
 
 export default function Flashcards() {

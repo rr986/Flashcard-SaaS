@@ -1,7 +1,7 @@
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Stripe from 'stripe';
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import firebaseConfig from '/Users/Ragini/Movies/Flashcard SaaS/Firebase/firebase.js'; // Ensure correct path
+import firebaseConfig from '../../firebase/firebase';
 
 // Initialize Firebase app
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();

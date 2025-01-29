@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../Firebase/firebase';
+import { db } from '../../firebase/firebase';
 import { collection, query, getDocs, deleteDoc, where, writeBatch } from 'firebase/firestore';
 import Link from 'next/link';
 

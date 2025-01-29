@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../../Firebase/firebase';
+import { db } from '../../firebase/firebase';
 
 export default function GenerateFlashcards() {
   const [topic, setTopic] = useState('');
