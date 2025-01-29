@@ -12,11 +12,6 @@
   ],
   "rootMainFiles": [],
   "pages": {
-    "/": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/index.js"
-    ],
     "/_app": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -32,10 +27,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/flashcards.js"
     ],
-    "/flashcards/generate": [
+    "/pricing": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/flashcards/generate.js"
+      "static/chunks/pages/pricing.js"
     ]
   },
   "ampFirstPages": []

@@ -2,7 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/flashcards/generate": "pages/flashcards/generate.js",
-  "/": "pages/index.js",
-  "/flashcards": "pages/flashcards.js"
+  "/pricing": "pages/pricing.js",
+  "/flashcards": "pages/flashcards.js",
+  "/api/createCheckoutSession": "pages/api/createCheckoutSession.js",
+  "/": "pages/index.js"
 }
