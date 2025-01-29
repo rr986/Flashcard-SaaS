@@ -1,6 +1,6 @@
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import Stripe from 'stripe';
-import db from '../../Firebase/firebase';
+import { db } from '../firebase/firebase';
 
 //const app = initializeApp(firebaseConfig);
 //const db = getFirestore(app);
