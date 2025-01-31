@@ -6,7 +6,7 @@ const cors = require('cors')({ origin: true });
 admin.initializeApp();
 
 const openai = new OpenAI({
-  apiKey: functions.config().openai.key,
+  apiKey: process.env.OPENAI_API_KEY, 
 });
 
 exports.generateFlashcards = functions.https.onRequest(async (req, res) => {
